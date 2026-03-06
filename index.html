@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Galang & Citra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; background-color: #000; color: white; overflow: hidden; font-family: 'Poppins', sans-serif; }
+        .font-aesthetic { font-family: 'Great Vibes', cursive; }
+        
+        /* Background Hero */
+        .hero { 
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), 
+            url('Gemini_Generated_Image_8rkvpa8rkvpa8rkv (1).png'); 
+            background-size: cover; background-position: center; height: 100vh;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+
+        .glass { 
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); 
+            border: 2px solid #fbbf24; border-radius: 20px; 
+            padding: 25px; margin: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Overlay Hitungan Mundur */
+        #overlay {
+            position: fixed; inset: 0; background: black; z-index: 100;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        #countdown-display {
+            font-size: 10rem; font-weight: bold; color: #fbbf24; display: none;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+        }
+
+        .btn-open {
+            background: #fbbf24; color: black; padding: 15px 35px;
+            border-radius: 99px; font-weight: bold; text-transform: uppercase;
+            letter-spacing: 2px; cursor: pointer; box-shadow: 0 0 15px #fbbf24;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="weddingSong" loop>
+        <source src="Christina_Perri_-_Thousand_years_(mp3.pm).mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="overlay">
+        <div id="intro-text" class="text-center mb-10">
+            <h2 class="font-aesthetic text-5xl mb-4 text-amber-300">Galang & Citra</h2>
+            <p class="text-[10px] tracking-[0.5em] uppercase opacity-70 text-white">Wedding Invitation</p>
+        </div>
+        
+        <button id="btnOpen" class="btn-open">Buka Undangan</button>
+        <div id="countdown-display">5</div>
+    </div>
+
+    <div class="hero">
+        <div class="px-4 max-w-xl opacity-0 transition-opacity duration-1000" id="main-content">
+            <p class="uppercase tracking-[0.4em] text-amber-300 text-[10px] mb-2 font-bold">The Wedding of</p>
+            <h1 class="font-aesthetic text-6xl md:text-7xl mb-4 text-white">Galang & Citra</h1>
+            <p class="text-lg tracking-[0.2em] border-y border-amber-500 py-1 inline-block mb-6">08 . 03 . 2026</p>
+            
+            <div class="glass shadow-2xl">
+                <p class="text-[13px] italic mb-4">"Ditunggu kehadiran mas-mas ganteng dan mba-mba cantik di hari bahagia kami."</p>
+                <div class="border-t border-amber-500/30 pt-3 text-[12px]">
+                    <h2 class="text-amber-400 font-bold uppercase mb-1">LOKASI ACARA</h2>
+                    <p>Jl. Karet Kavling RT 007 / RW 003, Desa Karet</p>
+                    <p>Kec. Sepatan, Kab. Tangerang, Banten 15520</p>
+                </div>
+                <p class="mt-4 text-amber-300 font-bold text-lg">BESOK! Minggu, 8 Maret 2026</p>
+            </div>
+            <p class="mt-4 text-[10px] opacity-60 uppercase tracking-[0.3em]">#GalangCitraHalal</p>
+        </div>
+    </div>
+
+    <script>
+        const btnOpen = document.getElementById('btnOpen');
+        const overlay = document.getElementById('overlay');
+        const introText = document.getElementById('intro-text');
+        const countdownDisplay = document.getElementById('countdown-display');
+        const mainContent = document.getElementById('main-content');
+        const song = document.getElementById('weddingSong');
+
+        btnOpen.addEventListener('click', () => {
+            btnOpen.style.display = 'none';
+            introText.style.display = 'none';
+            countdownDisplay.style.display = 'block';
+            
+            // Putar Lagu
+            song.play();
+
+            let timeLeft = 5;
+            const timer = setInterval(() => {
+                timeLeft--;
+                countdownDisplay.innerText = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    overlay.style.transition = 'opacity 0.8s ease';
+                    overlay.style.opacity = '0';
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                        mainContent.style.opacity = '1';
+                    }, 800);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
